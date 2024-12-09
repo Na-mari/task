@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+h1 {
+    text-align: center; /* 中央揃え */
+    font-size: 2rem; /* 必要ならフォントサイズを調整 */
+    margin: 1em 0; /* 上下の余白を調整 */
+    color: #333; /* 必要に応じてテキストの色を変更 */
+}
+
+/* ページ全体を中央揃え */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平方向中央揃え */
+    justify-content: center; /* 垂直方向中央揃え */
+    min-height: 100vh; /* ページ全体の高さを確保 */
+    background-color: #f8f9fa; /* 背景色（必要に応じて変更） */
+    padding: 2em;
+}
+
+/* 全体コンテナ */
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* 折り返し対応 */
+    gap: 1em; /* カード間のスペース */
+    justify-content: center; /* コンテンツを中央揃え */
+}
+
+/* タスクカードと追加フォームの共通スタイル */
+.task-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 300px; /* カードの幅 */
+    display: flex;
+    flex-direction: column;
+    gap: 1em; /* フィールド間のスペース */
+    text-align: left; /* テキストを左揃え */
+}
+
+.task-card.overdue {
+    background-color: #ffcccc; /* 赤色 */
+    color: #800000;
+}
+
+.task-card.due-today {
+    background-color: #b3d9ff; /* 淡い青色 */
+    color: #004080; /* 濃い青色 */
+}
+
+.task-card.completed {
+    background-color: #d3d3d3; /* グレー */
+    color: #555555; /* ダークグレー */
+}
+
+/* タスク追加フォームの特別スタイル */
+.add-task-card h4 {
+    font-size: 1.2rem; /* 他のカードと統一 */
+    margin-bottom: 1em;
+}
+
+.add-task-card .form-field label {
+    font-weight: bold;
+    font-size: 1rem; /* 他のカードのテキストと統一 */
+}
+
+/* フォーム内フィールド */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ボタン */
+.add-button {
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #0056b3;
+}
+
+/* 操作ボタン */
+.task-button {
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.complete-button {
+    background-color: #28a745;
+}
+
+.complete-button:hover {
+    background-color: #218838;
+}
+
+.delete-button,.cancel-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover,.cancel-button:hover {
+    background-color: #c82333;
+}
+
+.edit-button,.save-button {
+    background-color: #007bff;
+}
+
+.edit-button:hover,.save-button:hover {
+    background-color: #0056b3;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .task-card {
+        width: 100%; /* カードをフル幅に */
+    }
+}
