@@ -184,6 +184,7 @@ public class TodoDAO extends DAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            
         }
 
         return insertedRows;  // 挿入した行数を返す
