@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -119,5 +120,73 @@ public class TodoDAO extends DAO {
 		con.close();
 		return line;
 	}
+	
+	public List<Todo> csv(String today) throws Exception {
+	
+		Connection con=getConnection();
+
+		PreparedStatement st;
+		st=con.prepareStatement("SELECT * FROM todolist;");
+					
+		ResultSet rs=st.executeQuery();
+		System.out.println(st + " record(s) dashboard.");
+		
+		List<Todo> beans = new ArrayList<>();
+		while (rs.next()) {
+		    Todo bean = new Todo();
+		    bean.setId(rs.getInt("id"));
+		    bean.setTodo(rs.getString("todo"));
+		    bean.setDate(rs.getString("date"));
+		    bean.setDateend(rs.getString("dateend"));
+		    bean.setDatecompletion(rs.getString("datecompletion"));
+		    bean.setStatus(rs.getInt("status"));
+		    beans.add(bean);
+		}
+		
+		rs.close();
+		st.close();
+		con.close();
+		
+		return beans;
+	}
+	
+	public int intake(List<String[]> csvData) throws Exception {
+        Connection con = getConnection(); // DB接続メソッド（適切に実装してください）
+        PreparedStatement st = null;
+        int insertedRows = 0;
+
+        try {
+            // テーブルのデータを削除
+            st = con.prepareStatement("DELETE FROM todolist;");
+            st.executeUpdate();
+
+            // INSERT文の準備
+            st = con.prepareStatement("INSERT INTO todolist (id, todo, date, dateend, datecompletion, status) VALUES (?, ?, ?, ?, ?, ?)");
+
+            // 配列からデータを取得してSQLに挿入
+            for (String[] values : csvData) {
+                st.setInt(1, Integer.parseInt(values[0]));  // ID
+                st.setString(2, values[1]);                  // todo (タスク名)
+                st.setString(3, values[2]);                  // date (開始日)
+                st.setString(4, values[3]);                  // dateend (終了日)
+                st.setString(5, values[4]);                  // datecompletion (完了日)
+                st.setInt(6, Integer.parseInt(values[5]));   // status (ステータス)
+
+                insertedRows += st.executeUpdate();  // データを挿入し、挿入した行数をカウント
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("データベースへのインサート処理に失敗しました。");
+        } finally {
+            try {
+                if (st != null) st.close();
+                if (con != null) con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return insertedRows;  // 挿入した行数を返す
+    }
 }
 

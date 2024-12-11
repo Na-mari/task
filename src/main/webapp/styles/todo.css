@@ -135,6 +135,13 @@ input[type="datetime-local"] {
     background-color: #0056b3;
 }
 
+.form-actions label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .task-card {
