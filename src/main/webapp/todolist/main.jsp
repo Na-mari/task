@@ -6,18 +6,18 @@
 
 <sql:update dataSource="jdbc/todo">
     CREATE TABLE IF NOT EXISTS TODOLIST (
-        ID INTEGER PRIMARY KEY AUTO_INCREMENT,
-        TODO CHARACTER VARYING(200),
-        DATE CHARACTER VARYING(16),
-        DATECOMPLETION CHARACTER VARYING(16),
-        STATUS INTEGER,
-        DATEEND CHARACTER VARYING(30)
-    );
+	    ID BIGSERIAL PRIMARY KEY,
+	    TODO CHARACTER VARYING(200),
+	    DATE CHARACTER VARYING(16),
+	    DATECOMPLETION CHARACTER VARYING(16),
+	    STATUS INTEGER,
+	    DATEEND CHARACTER VARYING(30)
+	);
 </sql:update>
 
 <%
     String showDeleted = request.getParameter("showDeleted");
-    String whereCondition = "status NOT LIKE '2'";  // デフォルトは削除済みタスクを非表示
+    String whereCondition = "status != 2";  // デフォルトは削除済みタスクを非表示
 
     if (showDeleted != null && showDeleted.equals("true")) {
         whereCondition = "status = '2'";  // 削除済みタスク
@@ -29,7 +29,8 @@
     WHERE 
         <%= whereCondition %> 
         AND (todo LIKE ? OR date LIKE ? OR dateend LIKE ? OR datecompletion LIKE ?)
-    ORDER BY datecompletion, dateend;
+    ORDER BY CASE WHEN datecompletion IS NULL OR datecompletion = '' THEN 0
+        ELSE 1 END ASC,datecompletion ASC,dateend ASC;
     
     <sql:param value="%${param.keyword}%" />
     <sql:param value="%${param.keyword}%" />
