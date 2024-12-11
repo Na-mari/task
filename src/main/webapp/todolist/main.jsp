@@ -29,7 +29,7 @@
     WHERE 
         <%= whereCondition %> 
         AND (todo LIKE ? OR date LIKE ? OR dateend LIKE ? OR datecompletion LIKE ?)
-    ORDER BY datecompletion, dateend DESC;
+    ORDER BY datecompletion, dateend;
     
     <sql:param value="%${param.keyword}%" />
     <sql:param value="%${param.keyword}%" />
@@ -69,10 +69,21 @@
             <form action="main.jsp" method="get">
             	<input type="hidden" name="showDeleted" value="true" />
 	                <div class="form-actions">
-	                	<br>
 	                    <input type="submit" value="削除済みタスクを表示" class="add-button">
 	                </div>
 			</form>
+        </div>
+        <div class="task-card add-task-card">
+			<div class="form-actions">
+				<input type="submit" value="CSVへ出力" onClick="location.href='DownloadCSV'" class="add-button">
+				<div class="file-upload-container">
+		            <form action="Intake" method="post" enctype="multipart/form-data">
+		                <label for="csvFile">CSVファイルを選択:</label>
+		                <input type="file" name="csvFile" id="csvFile" required>
+		                <input type="submit" value="CSVから取込" class="add-button">
+		            </form>
+		        </div>
+			</div>
         </div>
 
         <!-- タスクリスト -->

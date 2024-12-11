@@ -4,7 +4,6 @@ function submitForm() {
 	document.forms['a_search'].submit(); // フォーム送信
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
     const currentDate = new Date(); // 現在の日時を取得
     const taskCards = document.querySelectorAll(".task-card"); // すべてのタスクカードを取得
