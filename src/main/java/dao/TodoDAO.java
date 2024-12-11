@@ -47,13 +47,23 @@ public class TodoDAO extends DAO {
 		Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         String formatted = dateFormat.format(now);
+        
+        PreparedStatement getMaxIdStmt = con.prepareStatement("SELECT MAX(id) FROM todolist");
+        ResultSet rs = getMaxIdStmt.executeQuery();
+        int nextId = 1; // 初期値（最初のレコード用）
+        if (rs.next()) {
+            nextId = rs.getInt(1) + 1; // 最大idに1を足す
+        }
+        rs.close();
+        getMaxIdStmt.close();
 
-		PreparedStatement st=con.prepareStatement(
-			"insert into todolist(todo, date, dateend) values(?, ?, ?)");
-		st.setString(1, todo.getTodo());
-		st.setString(2, formatted);
-		st.setString(3, todo.getDateend());
-		int line=st.executeUpdate();
+        PreparedStatement st = con.prepareStatement(
+                "INSERT INTO todolist(id, todo, date, dateend, status) VALUES(?, ?, ?, ?, 1)");
+            st.setInt(1, nextId);
+            st.setString(2, todo.getTodo());
+            st.setString(3, formatted);
+            st.setString(4, todo.getDateend());
+            int line = st.executeUpdate();
 
 		st.close();
 		con.close();
