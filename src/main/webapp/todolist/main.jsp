@@ -29,8 +29,15 @@
     WHERE 
         <%= whereCondition %> 
         AND (todo LIKE ? OR date LIKE ? OR dateend LIKE ? OR datecompletion LIKE ?)
-    ORDER BY CASE WHEN datecompletion IS NULL OR datecompletion = '' THEN 0
-        ELSE 1 END ASC,datecompletion ASC,dateend ASC;
+    ORDER BY 
+    CASE 
+        WHEN datecompletion IS NULL OR datecompletion = '' THEN 0
+        ELSE 1 
+    END ASC,
+    CASE 
+        WHEN datecompletion IS NULL OR datecompletion = '' THEN dateend
+        ELSE NULL
+    END ASC;
     
     <sql:param value="%${param.keyword}%" />
     <sql:param value="%${param.keyword}%" />

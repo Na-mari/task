@@ -1,7 +1,6 @@
 package todolist;
 
 import java.io.IOException;
-import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -27,13 +26,6 @@ public class Completion extends HttpServlet {
 			
 			TodoDAO dao=new TodoDAO();
 			dao.update(p);
-			
-			String task=request.getParameter("task");
-			if (task==null) task="";
-
-			List<Todo> list=dao.search(task);
-
-			request.setAttribute(task, list);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
 			dispatcher.forward(request, response);
