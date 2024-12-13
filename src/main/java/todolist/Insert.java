@@ -1,6 +1,8 @@
 package todolist;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -20,8 +22,12 @@ public class Insert extends HttpServlet {
 	) throws ServletException, IOException {
 		try {
 			String todo=request.getParameter("todo");
-			String dateend=request.getParameter("dateend");
-
+			String dateendmoto=request.getParameter("dateend");
+			
+			LocalDateTime dateTime = LocalDateTime.parse(dateendmoto);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+			String dateend = dateTime.format(formatter);
+			
 			Todo p=new Todo();
 			p.setTodo(todo);
 			p.setDateend(dateend);

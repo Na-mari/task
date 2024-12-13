@@ -58,7 +58,7 @@ public class TodoDAO extends DAO {
         getMaxIdStmt.close();
 
         PreparedStatement st = con.prepareStatement(
-                "INSERT INTO todolist(id, todo, date, dateend, status) VALUES(?, ?, ?, ?, 1)");
+                "INSERT INTO todolist(id, todo, date, dateend, status, datecompletion) VALUES(?, ?, ?, ?, 1, '')");
             st.setInt(1, nextId);
             st.setString(2, todo.getTodo());
             st.setString(3, formatted);
