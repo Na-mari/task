@@ -38,6 +38,8 @@ h1 {
     flex-direction: column;
     gap: 1em; /* フィールド間のスペース */
     text-align: left; /* テキストを左揃え */
+	min-height: 200px; 
+	margin: 0; /* 中央揃えに不要な余白を排除 */
 }
 
 .task-card.overdue {
@@ -142,9 +144,23 @@ input[type="datetime-local"] {
     text-align: center;
 }
 
+.buttons-container, .file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 内部要素間の余白 */
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
 /* レスポンシブ対応 */
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .task-card {
-        width: 100%; /* カードをフル幅に */
+        width: 100%;
+        padding: 1em;
+    }
+    .page-container {
+        padding: 1em;
     }
 }

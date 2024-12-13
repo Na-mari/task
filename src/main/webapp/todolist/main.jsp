@@ -82,17 +82,19 @@
 			</form>
         </div>
         <div class="task-card add-task-card">
-			<div class="form-actions">
-				<input type="submit" value="CSVへ出力" onClick="location.href='DownloadCSV'" class="add-button">
-				<div class="file-upload-container">
+		    <div class="form-actions">
+		        <div class="buttons-container">
+		            <button class="add-button" onclick="location.href='DownloadCSV'">CSVへ出力</button>
+		        </div>
+		        <div class="file-upload-container">
 		            <form action="Intake" method="post" enctype="multipart/form-data">
 		                <label for="csvFile">CSVファイルを選択:</label>
 		                <input type="file" name="csvFile" id="csvFile" required>
-		                <input type="submit" value="CSVから取込" class="add-button">
+		                <button type="submit" class="add-button">CSVから取込</button>
 		            </form>
 		        </div>
-			</div>
-        </div>
+		    </div>
+		</div>
 
         <!-- タスクリスト -->
         <c:forEach var="task" items="${list.rows}">
